@@ -1,0 +1,36 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+render = /render/3D.renderc
+
+[script]
+shared_state = 1
+
+[display]
+width = 1280
+height = 800
+samples = 4
+
+[android]
+input_method = HiddenInputField
+package = com.defold.example.basic3d
+
+[project]
+dependencies = 
+title = Basic3d Treasure Scene
+
+[physics]
+type = 3D
+
+[osx]
+bundle_identifier = com.defold.example.basic3d
+
+[ios]
+bundle_identifier = com.defold.example.basic3d
+
+[graphics]
+verify_graphics_calls = 0
+
+[html5]
+cssfile = /builtins/manifests/web/dark_theme.css
+show_made_with_defold = 0
+

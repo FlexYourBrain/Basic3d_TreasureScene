@@ -1,0 +1,74 @@
+local chest = "/chest#Chest"; local eyes = "/eyes#sprite"; local blink_id = "blink" local In = 1.0; local Out = 0.13; dur = 3.0; local spark = "/chest#sparkle"
+local cam ="/cam_pivot#camera"; local cam_pivot = "/camera"; local rot = 360
+
+
+local function eyefadeOut()
+
+	go.animate(eyes, "tint.w", go.PLAYBACK_ONCE_FORWARD, Out, go.EASING_INOUTSINE, dur, 6 , eyefadeIn)
+
+end
+
+local function blink()
+
+	sprite.play_flipbook(eyes, blink_id, eyefadeOut())
+
+end
+
+function eyefadeIn()
+
+	go.animate(eyes, "tint.w", go.PLAYBACK_ONCE_FORWARD, In, go.EASING_INOUTSINE, dur, 3 , blink)
+
+end
+
+function init(self)
+	msg.post("@render:", "clear_color", { color = vmath.vector4(0.051, 0.18, 0.188, 1) }) -- Set Clear Color RGBA(Background color)
+	msg.post("@render:", "use_camera_projection") -- set camera projection in render script
+	msg.post(cam, "acquire_camera_focus") -- Set camera to active slot on renderer
+	msg.post(".", "acquire_input_focus") -- active input
+	
+	self.is_open = false
+	self.is_playing = false
+	self.is_rotating = false
+	
+	go.set(eyes, "tint.w", Out)
+	timer.delay(0.5, false, eyefadeIn)
+end
+
+local function chest_reset(self)
+	self.is_playing = false
+end
+local function cam_reset(self)
+	go.set(cam_pivot, "euler.y", 0)
+	self.is_rotating = false
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		if not self.is_playing then
+			if self.is_open then
+				model.play_anim(chest, "treasure_chest", go.PLAYBACK_ONCE_BACKWARD, { playback_rate = 1.0 }, chest_reset)
+				particlefx.stop(spark)
+				self.is_open = false
+				self.is_playing = true
+			else
+				model.play_anim(chest, "treasure_chest", go.PLAYBACK_ONCE_FORWARD, { playback_rate = 1.0 }, chest_reset)
+				particlefx.play(spark)
+				self.is_open = true
+				self.is_playing = true
+			end
+		else
+		end
+	end
+	if action_id == hash("right") and action.pressed then
+		if not self.is_rotating then
+			go.animate(cam_pivot, "euler.y", go.PLAYBACK_ONCE_FORWARD, rot, go.EASING_INOUTSINE, 10, Out, cam_reset)
+			self.is_rotating = true
+		end
+	elseif action_id == hash("left") and action.pressed then
+		if not self.is_rotating then
+			go.animate(cam_pivot, "euler.y", go.PLAYBACK_ONCE_FORWARD, -rot, go.EASING_INOUTSINE, 10, Out, cam_reset)
+			self.is_rotating = true
+		end
+	end
+	
+end

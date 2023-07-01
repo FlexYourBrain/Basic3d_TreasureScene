@@ -1,0 +1,7 @@
+mesh: "/assets/model/treasure_scene.glb"
+material: "/assets/materials/scene.material"
+textures: "/assets/texture/treasure_atlas.png"
+skeleton: ""
+animations: ""
+default_animation: ""
+name: "Scene"

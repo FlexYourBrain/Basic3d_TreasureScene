@@ -1,0 +1,7 @@
+mesh: "/assets/model/treasure_chest.glb"
+material: "/assets/materials/scene.material"
+textures: "/assets/texture/treasure_atlas.png"
+skeleton: "/assets/model/treasure_chest.glb"
+animations: "/assets/model/treasure_chest.glb"
+default_animation: ""
+name: "Chest"
