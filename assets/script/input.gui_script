@@ -1,0 +1,12 @@
+
+function init(self)
+	self.turn = gui.get_node("turn")
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") then
+		if gui.pick_node(self.turn, action.x, action.y) and action.pressed then
+			msg.post("/camera#scene_input", "turn")
+		end
+	end
+end
