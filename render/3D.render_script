@@ -33,7 +33,6 @@ end
 function init(self)
     self.tile_pred = render.predicate({"tile"})
     self.gui_pred = render.predicate({"gui"})
-    self.text_pred = render.predicate({"text"})
     self.particle_pred = render.predicate({"particle"})
     self.model_pred = render.predicate({"model"})
     
@@ -45,11 +44,6 @@ function init(self)
 
     self.view = vmath.matrix4()
 
-    -- default is stretch projection. copy from builtins and change for different projection
-    -- or send a message to the render script to change projection:
-    -- msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
-    -- msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
-    -- msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
     self.near = -1
     self.far = 1
     self.projection_fn = stretch_projection
@@ -79,7 +73,7 @@ function update(self)
     render.enable_state(render.STATE_STENCIL_TEST)
     render.enable_state(render.STATE_DEPTH_TEST)
     render.set_depth_mask(true)
-    render.draw(self.model_pred)
+    render.draw(self.model_pred, {frustum = frustum_component})
     render.set_depth_mask(false)
     render.disable_state(render.STATE_DEPTH_TEST)
     render.disable_state(render.STATE_STENCIL_TEST)
@@ -108,10 +102,8 @@ function update(self)
 
     render.enable_state(render.STATE_STENCIL_TEST)
     render.draw(self.gui_pred, {frustum = frustum_gui})
-    render.draw(self.text_pred, {frustum = frustum_gui})
     render.disable_state(render.STATE_STENCIL_TEST)
     render.disable_state(render.STATE_BLEND)
- 
 end
 
 function on_message(self, message_id, message)
