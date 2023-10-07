@@ -37,7 +37,7 @@ animations {
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_ONCE_PINGPONG
-  fps: 8
+  fps: 12
   flip_horizontal: 0
   flip_vertical: 0
 }
