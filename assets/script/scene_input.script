@@ -57,12 +57,12 @@ function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.pressed then
 		if not self.is_playing then
 			if self.is_open then
-				model.play_anim(chest, "treasure_chest", go.PLAYBACK_ONCE_BACKWARD, { playback_rate = 1.0 }, chest_reset)
+				model.play_anim(chest, "Chest_open", go.PLAYBACK_ONCE_BACKWARD, { playback_rate = 1.0 }, chest_reset)
 				particlefx.stop(spark)
 				self.is_open = false
 				self.is_playing = true
 			else
-				model.play_anim(chest, "treasure_chest", go.PLAYBACK_ONCE_FORWARD, { playback_rate = 1.0 }, chest_reset)
+				model.play_anim(chest, "Chest_open", go.PLAYBACK_ONCE_FORWARD, { playback_rate = 1.0 }, chest_reset)
 				particlefx.play(spark)
 				self.is_open = true
 				self.is_playing = true
