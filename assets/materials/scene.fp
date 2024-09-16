@@ -1,9 +1,12 @@
-varying mediump vec2 var_texcoord0;
+#version 140
 
-uniform lowp sampler2D tex0;
+in vec2 var_texcoord0;
+out vec4 color_out;
+
+uniform sampler2D tex0;
 
 void main()
 {
-    vec4 color = texture2D(tex0, var_texcoord0.xy);
-    gl_FragColor = vec4(color.rgb/color.a, color.a);
+    vec4 color = texture(tex0, var_texcoord0.xy);
+    color_out = vec4(color.rgb/color.a, color.a);
 }

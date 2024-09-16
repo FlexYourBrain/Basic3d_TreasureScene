@@ -1,12 +1,15 @@
+#version 140
 
-attribute highp vec4 position;
-attribute mediump vec2 texcoord0;
+in vec4 position;
+in vec2 texcoord0;
 
-uniform mediump mat4 mtx_worldview;
-uniform mediump mat4 mtx_view;
-uniform mediump mat4 mtx_proj;
+uniform vertex_inputs
+{
+    mat4 mtx_worldview;
+    mat4 mtx_proj;
+};
 
-varying mediump vec2 var_texcoord0;
+out vec2 var_texcoord0;
 
 void main()
 {
